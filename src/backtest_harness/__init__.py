@@ -42,6 +42,7 @@ __all__ = [
     "FeeModel",
     "FlatMakerTakerModel",
     "MonteCarloSimulator",
+    "build_backtest_receipt",
     "split_walk_forward",
     "tearsheet",
 ]

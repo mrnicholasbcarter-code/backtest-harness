@@ -1,0 +1,30 @@
+{
+  "agents": {
+    "hive-worker-1786862550576-gbhu": {
+      "agentId": "hive-worker-1786862550576-gbhu",
+      "agentType": "worker",
+      "status": "idle",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "role": "worker",
+        "hiveRole": "worker"
+      },
+      "createdAt": "2026-08-16T06:42:30.576Z",
+      "domain": "hive-mind"
+    },
+    "hive-worker-1786862655170-us94": {
+      "agentId": "hive-worker-1786862655170-us94",
+      "agentType": "worker",
+      "status": "idle",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "role": "worker",
+        "hiveRole": "worker"
+      },
+      "createdAt": "2026-08-16T06:44:15.170Z",
+      "domain": "hive-mind"
+    }
+  }
+}

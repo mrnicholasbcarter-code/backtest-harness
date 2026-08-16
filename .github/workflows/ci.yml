@@ -43,3 +43,19 @@ jobs:
           "$RUNNER_TEMP/verdict-backtest-sdist/bin/python" -m pip install --upgrade pip
           "$RUNNER_TEMP/verdict-backtest-sdist/bin/python" -m pip install dist/*.tar.gz
           "$RUNNER_TEMP/verdict-backtest-sdist/bin/python" -c "from backtest_harness import MonteCarloSimulator; assert MonteCarloSimulator"
+
+  compat-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install verdict-core (compat gate)
+        run: |
+          python -m pip install --upgrade pip
+          # Core PR #290 merged - pin to main branch
+          pip install "git+https://github.com/mrnicholasbcarter-code/verdict-core.git@main"
+      - name: Check declared compat manifest
+        run: verdict compat check --declared .verdict/compat-manifest.json --json
