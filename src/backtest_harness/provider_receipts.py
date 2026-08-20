@@ -9,6 +9,22 @@ from typing import Any
 
 SCHEMA_VERSION = "1"
 
+# Single source of truth for the provider version stamped into receipts and
+# re-exported as ``backtest_harness.__version__``.
+PROVIDER_VERSION = "0.3.0"
+
+
+def canonical_hash(value: Any) -> str:
+    """Hash JSON-compatible input using stable canonical serialization.
+
+    Matches verdict-core's ``canonical_hash`` (ADR-021) byte-for-byte so that
+    identical payloads hashed by either side produce identical digests.
+    Non-JSON-compatible input raises ``TypeError`` instead of being silently
+    coerced.
+    """
+    encoded = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    return f"sha256:{hashlib.sha256(encoded.encode('utf-8')).hexdigest()}"
+
 
 def build_backtest_receipt(
     *,
@@ -29,7 +45,7 @@ def build_backtest_receipt(
         "schema_version": SCHEMA_VERSION,
         "run_id": run_id,
         "provider": "verdict-backtest",
-        "provider_version": "0.2.0",
+        "provider_version": PROVIDER_VERSION,
         "inputs_hash": _hash(inputs),
         "config_hash": _hash(config),
         "outcome": outcome,
@@ -61,4 +77,9 @@ def _reject_sensitive(value: Any) -> None:
             _reject_sensitive(child)
 
 
-__all__ = ["SCHEMA_VERSION", "build_backtest_receipt"]
+__all__ = [
+    "PROVIDER_VERSION",
+    "SCHEMA_VERSION",
+    "build_backtest_receipt",
+    "canonical_hash",
+]

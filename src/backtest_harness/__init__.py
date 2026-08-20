@@ -27,15 +27,25 @@ Example:
 """
 
 from backtest_harness.analytics import split_walk_forward, tearsheet
+from backtest_harness.evidence import (
+    build_failure_evidence,
+    run_counterfactual,
+    to_evidence_chain_link,
+    to_verification_result,
+)
 from backtest_harness.fee_models import (
     BoundedProfitFeeModel,
     FeeModel,
     FlatMakerTakerModel,
 )
 from backtest_harness.monte_carlo import MonteCarloSimulator
-from backtest_harness.provider_receipts import build_backtest_receipt
+from backtest_harness.provider_receipts import (
+    PROVIDER_VERSION,
+    build_backtest_receipt,
+    canonical_hash,
+)
 
-__version__ = "0.2.0"
+__version__ = PROVIDER_VERSION
 
 __all__ = [
     "BoundedProfitFeeModel",
@@ -43,6 +53,11 @@ __all__ = [
     "FlatMakerTakerModel",
     "MonteCarloSimulator",
     "build_backtest_receipt",
+    "build_failure_evidence",
+    "canonical_hash",
+    "run_counterfactual",
     "split_walk_forward",
     "tearsheet",
+    "to_evidence_chain_link",
+    "to_verification_result",
 ]
