@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 from math import sqrt
-from typing import Any
+from typing import Any, Literal, overload
 
 import numpy as np
 
@@ -34,6 +34,14 @@ def _to_returns(returns: Any) -> np.ndarray:
     return arr
 
 
+@overload
+def tearsheet(
+    returns: Any, periods_per_year: int = _TRADING_PERIODS, as_dict: Literal[True] = True
+) -> dict[str, float | int]: ...
+@overload
+def tearsheet(
+    returns: Any, periods_per_year: int = _TRADING_PERIODS, as_dict: Literal[False] = False
+) -> None: ...
 def tearsheet(
     returns: Any, periods_per_year: int = _TRADING_PERIODS, as_dict: bool = True
 ) -> dict | None:
